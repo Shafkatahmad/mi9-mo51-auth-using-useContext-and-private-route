@@ -24,7 +24,15 @@ const Navbar = () => {
       <NavLink className="mr-2" to="/register">
         Register
       </NavLink>
-      <NavLink to="/register2">Register2</NavLink>
+      {/* <NavLink to="/register2">Register2</NavLink> */}
+      {user && (
+        <>
+          <NavLink className="mr-2" to="/orders">
+            Orders
+          </NavLink>
+          <NavLink to="/profile">Profile</NavLink>
+        </>
+      )}
     </>
   );
   return (

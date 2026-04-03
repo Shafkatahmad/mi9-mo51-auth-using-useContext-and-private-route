@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const SignIn = () => {
-  const { signInUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -16,10 +17,21 @@ const SignIn = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+        e.target.reset();
+        navigate("/");
       })
       .catch((error) => {
         console.log("ERROR", error.message);
       });
+  };
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => console.log("ERROR", error.message));
   };
   // console.log("hello");
   return (
@@ -55,6 +67,12 @@ const SignIn = () => {
               Register
             </Link>
           </p>
+          <button
+            onClick={handleGoogleSignIn}
+            className="btn-ghost cursor-pointer"
+          >
+            Google
+          </button>
         </div>
       </div>
     </div>
